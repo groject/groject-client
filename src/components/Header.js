@@ -37,6 +37,9 @@ function Header() {
       </div>
       <div css={css([headerLink, { marginRight: '64px' }])}>
         <Link to='/' css={css(linkStyle)}>
+          SIGNUP
+        </Link>
+        <Link to='/' css={css(linkStyle)}>
           LOGIN
         </Link>
       </div>
