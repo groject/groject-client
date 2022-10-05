@@ -103,11 +103,32 @@ function Main() {
         <Button disabled={disabled[1]} clickButton={() => clickButton(1)}>APP</Button>
         <Button disabled={disabled[2]} clickButton={() => clickButton(2)}>IRON</Button>
       </div>
-      <div>
+      <div css={css`
+        margin: 30px;
+        height: 40px;
+        display: flex;
+        gap: 5px;
+      `}>
         <button css={css`
-          
+          border-radius: 10px;
+          height: 40px;
+          position: absolute;
+          right: 275px;
+          width: 80px;
+          font-size: 16px;
+          background-color: white;
+          border: 1px solid black;
+          cursor: pointer;
         `}>글쓰기</button>
-        <select>
+        <select css={css`
+          height: 40px;
+          position: absolute;
+          right: 150px;
+          font-size: 16px;
+          border-radius: 10px;
+          padding-left: 5px;
+          width: 120px;
+        `}>
           <option value="0">정렬</option>
           <option value="1">최신순</option>
           <option value="2">인기순</option>
