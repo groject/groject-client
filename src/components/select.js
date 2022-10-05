@@ -12,6 +12,7 @@ function Select({ display, label, width, height, id, title, margin, cssProp, eve
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 1.56rem;
         box-sizing: border-box;
+        margin-bottom: 16px;
       `}>
         <span css={
           css`
@@ -35,7 +36,10 @@ function Select({ display, label, width, height, id, title, margin, cssProp, eve
             font-size: 1.56rem;
             margin-left: ${margin};
             color: #6C6C6C;
-            ${cssProp}
+            ${cssProp};
+            @media screen and (max-width: 830px) {
+              width: 15.6vw;
+            }
           `}
           onClick={event}
         >
