@@ -259,7 +259,7 @@ function Main() {
   const [disabled, setDisabled] = useState([true, false, false]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(-1);
   const clickButton = (index) => {
     let newDisabledArray = [false, false, false];
     newDisabledArray[index] = true;
