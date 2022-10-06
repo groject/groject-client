@@ -7,7 +7,11 @@ import SignupButton from './signupButton';
 
 function Signup() {
   const [selected, setSelected] = useState(-1);
-  return(
+
+  function handleClick(e) {
+    window.location.replace('/')
+  }
+    return(
     <div css={
       css`
         display: flex;
@@ -34,5 +38,6 @@ function Signup() {
     </div>
   )
 }
+
 
 export default Signup;

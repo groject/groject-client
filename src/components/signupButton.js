@@ -2,13 +2,16 @@
 import { jsx, css } from '@emotion/react'
 
 function SignupButton({ title }) {
+  function handleClick(e) {
+    window.location.replace('/')
+  }
   return(
     <div css={css`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.56rem;
     margin-bottom: 16px;
   `}>
-      <button css={css`
+      <button onClick ={handleClick} css={css`
         width: 810px;
         height: 65px;
         background: #3FB05E;

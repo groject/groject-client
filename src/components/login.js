@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import InputBox from './inputBox'
-import Select from './select';
 import SignupButton from './signupButton';
 
 function Login() {
