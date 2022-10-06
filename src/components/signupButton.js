@@ -22,8 +22,19 @@ function SignupButton({ title }) {
         font-family: 'Inter', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 1.56rem;
         margin-top: 70px;
+        transition: transform .3s;
         @media screen and (max-width: 830px) {
           width: 98vw;
+        }
+
+        &:hover{
+          transform: scale(1.01);
+          cursor: pointer;
+        }
+
+        &:active{
+          transform: scale(1);
+          background-color: #389F53;
         }
       `}>
         {title}
