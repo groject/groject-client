@@ -7,7 +7,11 @@ import SignupButton from './signupButton';
 
 function Signup() {
   const [selected, setSelected] = useState(-1);
-  return(
+
+  function handleClick(e) {
+    window.location.replace('/')
+  }
+    return(
     <div css={
       css`
         display: flex;
@@ -29,10 +33,11 @@ function Signup() {
         <InputBox label='학번' placeholder='학번'/>
         <InputBox label='비밀번호' placeholder='비밀번호'/>
         <InputBox label='비밀번호 확인' placeholder='비밀번호 확인'/>
-        <SignupButton />
+        <SignupButton title='회원가입' />
       </div>
     </div>
   )
 }
+
 
 export default Signup;

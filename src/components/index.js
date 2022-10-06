@@ -1,3 +1,4 @@
-export { default as Header } from './Header';
+/* pages */
 export { default as Main } from './Main';
 export { default as Signup } from './signup';
+export { default as Login } from './login';
