@@ -5,7 +5,7 @@ export const linkStyle = css`
   &:link{
     text-decoration: none;
   }
-  &:visited{
+  /* &:visited{
     color: black;
-  }
+  } */
 `

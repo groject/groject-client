@@ -14,6 +14,7 @@ const headerLink = css({
 })
 
 function Header() {
+  console.log(window.location.pathname);
   return (
     <header css={css(
       {
@@ -21,17 +22,16 @@ function Header() {
         height: '80px',
         display: 'flex',
         justifyContent: 'space-between',
-
       }
     )}>
       <div css={css([headerLink, { marginLeft: '64px' }])}>
-        <Link to='/' css={css(linkStyle)}>
+        <Link to='/' css={[linkStyle, { color: window.location.pathname === '/' ? '#3FB05E' : 'black' }]}>
           나눔
         </Link>
-        <Link to='/' css={css(linkStyle)}>
+        <Link to='/worker' css={[linkStyle, { color: window.location.pathname === '/worker' ? '#3FB05E' : 'black' }]}>
           사람 구하기
         </Link>
-        <Link to='/' css={css(linkStyle)}>
+        <Link to='/capsule' css={[linkStyle, { color: window.location.pathname === '/capsule' ? '#3FB05E' : 'black' }]}>
           캡슐
         </Link>
       </div>
