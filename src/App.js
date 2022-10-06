@@ -9,6 +9,7 @@ function App() {
         <Routes>
           <Route path='/' element={<C.Main />} />
           <Route path='/signup' element={<C.Signup />} />
+          <Route path='/login' element={<C.Login />} />
         </Routes>
       </BrowserRouter>
     </>
