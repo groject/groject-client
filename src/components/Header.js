@@ -14,8 +14,7 @@ const headerLink = css({
 })
 
 function Header() {
-  console.log(window.location.pathname);
-  return (
+    return (
     <header css={css(
       {
         // backgroundColor: '#F8FCF7',
