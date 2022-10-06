@@ -351,8 +351,13 @@ function Main() {
         /* grid-template-columns: 1fr 1fr 1fr 1fr; */
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         margin: 0 auto;
-        gap: 30px;
+        gap: 50px;
       `} >
+        <IdeaLink />
+        <IdeaLink />
+        <IdeaLink />
+        <IdeaLink />
+        <IdeaLink />
         <IdeaLink />
         <IdeaLink />
         <IdeaLink />
