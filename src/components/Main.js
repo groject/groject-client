@@ -239,11 +239,17 @@ function InputInfo({ children }) {
       <input type='text' placeholder={children} css={css`
         padding-left: 15px;
         border: none;
+        box-sizing: border-box;
         border-radius: 5px;
+        outline: none;
         box-shadow: 2px 2px 5px rgba(0,0,0,25%);
         width: 500px;
-        height: 30px;
+        height: 35px;
         font-size: 16px;
+
+        &:focus{
+          border: 2px solid #3FB05E;
+        }
       `} />
     </div>
   )
@@ -376,6 +382,7 @@ function Main() {
             width: "940px",
             height: "500px",
             margin: "auto",
+            outline: 'none',
             borderRadius: "20px",
             overflowX: "hidden",
             paddingLeft: "130px",
@@ -451,7 +458,7 @@ function Main() {
             display: flex;
             width: 100%;
             flex-direction: column;
-            gap: 35px;
+            gap: 30px;
           `}>
             <InputInfo>프로젝트 명</InputInfo>
             <InputInfo>한 줄 설명</InputInfo>
@@ -473,11 +480,11 @@ function Main() {
                   justify-content: space-between;
                   align-items: center;
                   margin: 0;
-                  width: 510px;
+                  width: 500px;
                 `} >
-                <Select cssProp={selected === 2 && 'border: 2px solid #3FB05E'} event={() => setSelected(2)} display='none' margin='0' width='137px' height='30px' id='2' title='웹 서비스' fontSize='18px' divStyle={`margin: 0`} />
-                <Select cssProp={selected === 1 && 'border: 2px solid #3FB05E'} event={() => setSelected(1)} display='none' margin='0' width='137px' height='30px' id='1' title='앱 서비스' fontSize='18px' divStyle={`margin: 0`} />
-                <Select cssProp={selected === 3 && 'border: 2px solid #3FB05E'} event={() => setSelected(3)} display='none' margin='0' width='137px' height='30px' id='3' title='하드웨어' fontSize='18px' divStyle={`margin: 0`} />
+                <Select cssProp={selected === 2 && 'border: 2px solid #3FB05E'} event={() => setSelected(2)} display='none' margin='0' width='135px' height='30px' id='2' title='웹 서비스' fontSize='18px' divStyle={`margin: 0`} />
+                <Select cssProp={selected === 1 && 'border: 2px solid #3FB05E'} event={() => setSelected(1)} display='none' margin='0' width='135px' height='30px' id='1' title='앱 서비스' fontSize='18px' divStyle={`margin: 0`} />
+                <Select cssProp={selected === 3 && 'border: 2px solid #3FB05E'} event={() => setSelected(3)} display='none' margin='0' width='135px' height='30px' id='3' title='하드웨어' fontSize='18px' divStyle={`margin: 0`} />
               </div>
             </div>
             <InputInfo>사용 언어/툴</InputInfo>
@@ -486,10 +493,20 @@ function Main() {
         </div>
         <textarea placeholder='프로젝트 및 아이디어에 대한 설명을 작성해주세요.' css={css`
           width: calc(100% - 40px);
-          height: 90px;
+          height: 120px;
           resize: none;
-          padding-top: 10px;
-          padding-left: 30px;
+          outline: none;
+          border: none;
+          border-radius: 10px;
+          box-sizing: border-box;
+          box-shadow: inset 0px 0px 4px 3px rgba(0, 0, 0, 0.25);
+          padding: 15px;
+          margin-top: 12px;
+          
+          &:focus{
+            border: 2px solid #3FB05E;
+            box-shadow: inset 0px 0px 4px 3px rgba(63, 176, 94, 0.25)
+          }
         `} />
         <div css={css`
           text-align: center;
