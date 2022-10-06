@@ -29,7 +29,7 @@ function Signup() {
         <InputBox label='학번' placeholder='학번'/>
         <InputBox label='비밀번호' placeholder='비밀번호'/>
         <InputBox label='비밀번호 확인' placeholder='비밀번호 확인'/>
-        <SignupButton />
+        <SignupButton title='회원가입' />
       </div>
     </div>
   )

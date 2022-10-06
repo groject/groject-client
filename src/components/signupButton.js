@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { jsx, css } from '@emotion/react'
 
-function SignupButton() {
+function SignupButton({ title }) {
   return(
     <div css={css`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -23,7 +23,7 @@ function SignupButton() {
           width: 98vw;
         }
       `}>
-        회원가입
+        {title}
       </button>
     </div>
   )
