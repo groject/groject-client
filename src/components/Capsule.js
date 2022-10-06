@@ -255,7 +255,7 @@ function InputInfo({ children }) {
   )
 }
 
-function Main() {
+function Capsule() {
   const [disabled, setDisabled] = useState([true, false, false]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -526,4 +526,4 @@ function Main() {
   )
 }
 
-export default Main
+export default Capsule

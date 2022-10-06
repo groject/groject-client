@@ -16,7 +16,7 @@ function IdeaLink() {
       width: 280px;
       height: 420px;
       border-radius: 30px;
-      background: #EBF3E9;
+      background: #DDEEF1;
       box-shadow: 5px 5px 5px rgba(0, 0, 0, 30%);
       cursor: pointer;
     `}
@@ -195,7 +195,7 @@ function Button({ children, disabled, clickButton }) {
       font-size: 20px;
       cursor: pointer;
       width: 100px;
-      background-color: ${!disabled ? '#F3F3F3' : '#3FB05E'};
+      background-color: ${!disabled ? '#F3F3F3' : '#258FE5'};
       color: ${!disabled ? 'black' : 'white'};
     `} disabled={disabled} onClick={() => clickButton()}>
       {children}
@@ -255,7 +255,7 @@ function InputInfo({ children }) {
   )
 }
 
-function Main() {
+function Worker() {
   const [disabled, setDisabled] = useState([true, false, false]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -526,4 +526,4 @@ function Main() {
   )
 }
 
-export default Main
+export default Worker
