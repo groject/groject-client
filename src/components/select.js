@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { jsx, css } from '@emotion/react'
 import React, { useState } from 'react';
+import { signupState } from '../atom';
+import { useRecoilState } from 'recoil';
 
 
 function Select({ display, label, width, height, id, title, margin, cssProp, event, fontSize, divStyle }) {
 
-  const [selected, setSelected] = useState('');
+  const [signup, setSignup] = useRecoilState(signupState);
 
   return (
     <div css={css`
@@ -43,7 +45,13 @@ function Select({ display, label, width, height, id, title, margin, cssProp, eve
               width: 15.6vw;
             }
           `}
-        onClick={event}
+        onClick={() => {
+          event();
+          setSignup({
+            ...signup,
+            school: title
+          })
+        }}
       >
         {title}
       </button>

@@ -1,17 +1,44 @@
 /** @jsxImportSource @emotion/react */
 import { jsx, css } from '@emotion/react'
+import { loginState, signupState } from '../atom';
+import { useRecoilState } from 'recoil';
+import { instance } from '../instance';
+import { useNavigate } from 'react-router-dom';
 
-function SignupButton({ title }) {
-  function handleClick(e) {
-    window.location.replace('/')
+function SignupButton({ title, loginType }) {
+  const nav = useNavigate();
+  const [signup, setSignup] = useRecoilState(signupState);
+  const [login, setLogin] = useRecoilState(loginState);
+  const postSignUp = async () => {
+    try {
+      const response = await instance.post('/user/signup', signup);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
-  return(
+  const postLogin = async () => {
+    try {
+      console.log(login);
+      const response = await instance.post('/user/login', login);
+      console.log(response);
+      localStorage.setItem('access-token', response.data.accessToken);
+      localStorage.setItem('user', response.data.authority);
+      nav('/');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const selectPost = () => {
+    loginType ? postLogin() : postSignUp();
+  }
+  return (
     <div css={css`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.56rem;
     margin-bottom: 16px;
   `}>
-      <button onClick ={handleClick} css={css`
+      <button onClick={selectPost} css={css`
         width: 810px;
         height: 65px;
         background: #3FB05E;

@@ -4,7 +4,7 @@ import InputBox from './inputBox'
 import SignupButton from './signupButton';
 
 function Login() {
-  return(
+  return (
     <div css={
       css`
         display: flex;
@@ -16,10 +16,10 @@ function Login() {
     >
       <img src='./images/Logo.svg' css={css`margin-bottom: 97px;`} />
       <div>
-        <InputBox label='학번' placeholder='학번'/>
-        <InputBox label='비밀번호' placeholder='비밀번호' type='password' />
+        <InputBox label='학번' placeholder='학번' engName='number' loginType />
+        <InputBox label='비밀번호' placeholder='비밀번호' type='password' engName='password' loginType />
         <div css={
-        css`
+          css`
           width: 613px; 
           margin-left: 197px;
           @media screen and (max-width: 830px) {
@@ -40,7 +40,7 @@ function Login() {
             비밀번호를 잊으셨나요?
           </button>
         </div>
-        <SignupButton title='로그인' />
+        <SignupButton title='로그인' loginType/>
       </div>
     </div>
   )
