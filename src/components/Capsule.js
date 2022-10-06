@@ -34,6 +34,7 @@ function IdeaLink() {
           width: 240px;
           height: 240px;
           border-radius: 30px;
+          margin-top: 10px;
         `} />
           <div css={css`
             display: flex;
@@ -199,7 +200,7 @@ function Button({ children, disabled, clickButton }) {
       font-size: 20px;
       cursor: pointer;
       width: 100px;
-      background-color: ${!disabled ? '#F3F3F3' : '#3FB05E'};
+      background-color: ${!disabled ? '#F3F3F3' : '#FF783E'};
       color: ${!disabled ? 'black' : 'white'};
     `} disabled={disabled} onClick={() => clickButton()}>
       {children}
