@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { jsx, css } from '@emotion/react'
 
-function InputBox({ label, placeholder}) {
+function InputBox({ label, placeholder, type }) {
   return (
     <div css={css`
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -41,7 +41,8 @@ function InputBox({ label, placeholder}) {
               border: 2px solid #3FB05E;
             }
           `}
-          placeholder={placeholder} 
+          placeholder={placeholder}
+          type={type}
         />
     </div>
   )

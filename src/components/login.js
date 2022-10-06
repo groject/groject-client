@@ -17,7 +17,7 @@ function Login() {
       <img src='./images/Logo.svg' css={css`margin-bottom: 97px;`} />
       <div>
         <InputBox label='학번' placeholder='학번'/>
-        <InputBox label='비밀번호' placeholder='비밀번호'/>
+        <InputBox label='비밀번호' placeholder='비밀번호' type='password' />
         <div css={
         css`
           width: 613px; 
