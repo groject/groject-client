@@ -256,7 +256,7 @@ function InputInfo({ children }) {
 }
 
 function Worker() {
-  const [disabled, setDisabled] = useState([true, false, false]);
+  const [disabled, setDisabled] = useState([false, false, false]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [sort, setSort] = useState('정렬');
