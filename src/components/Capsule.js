@@ -15,8 +15,8 @@ function IdeaLink() {
       <div css={css`
       width: 280px;
       height: 420px;
-      border-radius: 30px;
-      background: #EBF3E9;
+      border-radius: 140px;
+      background: #FFE7DA;
       box-shadow: 5px 5px 5px rgba(0, 0, 0, 30%);
       cursor: pointer;
     `}
@@ -24,22 +24,37 @@ function IdeaLink() {
         <div css={css`
         width: 260px;
         height: 260px;
-        border-radius: 30px 30px 0px 0px;
+        border-radius: 130px 130px 0px 0px;
         margin: 10px;
         text-align: center;
         background-color: white;
+        position: relative;
       `}>
           <img src='./images/Logo.svg' alt='아이디어의 로고 사진' css={css`
           width: 240px;
           height: 240px;
           border-radius: 30px;
-        `} onClick={() => setIsModalOpen(true)} />
+        `} />
+          <div css={css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+          `} onClick={() => setLiked(prev => !prev)}>
+            <img src={hover ? './images/hoverPlant.svg' : (!liked ? './images/defaultPlant.svg' : './images/clickPlant.svg')} alt='좋아요 개수' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} />
+            <span css={css`
+              font-size: 12px;
+            `}>80</span>
+          </div>
         </div>
         <div css={css`
         font-size: 18px;
         padding: 20px;
         padding-top: 10px;
         padding-bottom: 10px;
+        text-align: center;
       `}>
           <div onClick={() => setIsModalOpen(true)}>
             <h4 css={css`
@@ -53,8 +68,7 @@ function IdeaLink() {
         <div css={css`
           font-size: 18px;
           padding: 20px;
-          display: flex;
-          justify-content: space-between;
+          text-align: center;
         `}>
           <div onClick={() => setIsModalOpen(true)}>
             <span css={css`
@@ -65,16 +79,6 @@ function IdeaLink() {
             font-size: 0.6em;
             display: block;
           `}>1일 전</span>
-          </div>
-          <div css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          `} onClick={() => setLiked(prev => !prev)}>
-            <img src={hover ? './images/hoverPlant.svg' : (!liked ? './images/defaultPlant.svg' : './images/clickPlant.svg')} alt='좋아요 개수' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} />
-            <span css={css`
-              font-size: 12px;
-            `}>80</span>
           </div>
         </div>
       </div>
