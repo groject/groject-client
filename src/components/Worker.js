@@ -271,7 +271,7 @@ function Worker() {
       <Header />
       <div css={css`
         text-align: center;
-        margin-top: 30px;
+        margin-top: 110px;
       `} >
         <img src='./images/logo.svg' alt="로고" css={css`
           width: 200px;

@@ -271,7 +271,7 @@ function Main() {
       <Header />
       <div css={css`
         text-align: center;
-        margin-top: 30px;
+        margin-top: 110px;
       `} >
         <img src='./images/logo.svg' alt="로고" css={css`
           width: 200px;
@@ -303,7 +303,7 @@ function Main() {
           background-color: white;
           border: 1px solid black;
           cursor: pointer;
-        `} onClick={() => setIsModalOpen(true)}>글쓰기</button>
+          `} onClick={() => setIsModalOpen(true)}>글쓰기</button>
         <ul css={css`
             list-style-type: none;
             margin: 0;

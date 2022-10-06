@@ -272,7 +272,7 @@ function Capsule() {
     setDisabled(newDisabledArray);
   }
   return (
-    <>
+    <div css={css`margin-top: 110px;`}>
       <Header />
       <div css={css`
         text-align: center;
@@ -527,7 +527,7 @@ function Capsule() {
           <JoinButton color='#3FB05E'>등록</JoinButton>
         </div>
       </Modal>
-    </>
+    </div>
   )
 }
 

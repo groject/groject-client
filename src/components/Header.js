@@ -18,9 +18,16 @@ function Header() {
     <header css={css(
       {
         // backgroundColor: '#F8FCF7',
+        zIndex: '1',
+        position: 'fixed',
+        top: '0px',
+        width: '100%',
         height: '80px',
+        lineHeight: '80px',
+        background: '#F6F8FA',
         display: 'flex',
-        justifyContent: 'space-between',
+        borderBottom: '1px solid #BABABA',
+        justifyContent: 'space-between'
       }
     )}>
       <div css={css([headerLink, { marginLeft: '64px' }])}>
