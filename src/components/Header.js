@@ -39,7 +39,7 @@ function Header() {
         <Link to='/signup' css={css(linkStyle)}>
           SIGNUP
         </Link>
-        <Link to='/' css={css(linkStyle)}>
+        <Link to='/login' css={css(linkStyle)}>
           LOGIN
         </Link>
       </div>
