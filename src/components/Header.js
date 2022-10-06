@@ -14,7 +14,7 @@ const headerLink = css({
 })
 
 function Header() {
-    return (
+  return (
     <header css={css(
       {
         // backgroundColor: '#F8FCF7',
@@ -41,15 +41,27 @@ function Header() {
           캡슐
         </Link>
       </div>
-      <div css={css([headerLink, { marginRight: '64px' }])}>
+      {!localStorage.getItem('access-token') ? <div css={css([headerLink, { marginRight: '64px' }])}>
         <Link to='/signup' css={[(linkStyle), { color: 'black' }]}>
           SIGNUP
         </Link>
         <Link to='/login' css={[(linkStyle), { color: 'black' }]}>
           LOGIN
         </Link>
-      </div>
-    </header>
+      </div> : <div css={css([headerLink, { marginRight: '64px' }])}>
+        <Link to='/my' css={[(linkStyle), { color: 'black' }]}>
+          MYPAGE
+        </Link>
+        <span css={[(linkStyle), { color: 'black', cursor: 'pointer' }]} onClick={() => {
+          localStorage.removeItem('access-token');
+          localStorage.removeItem('user');
+          window.location.reload();
+        }
+        }>
+          LOGOUT
+        </span>
+      </div>}
+    </header >
   )
 }
 

@@ -1,15 +1,75 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from './Header'
 import Modal from 'react-modal';
 import { MdOutlineClose } from 'react-icons/md';
 import Select from './select';
+import { categoryState, newPostState, sortState } from '../atom';
+import { useRecoilState } from 'recoil';
+import { instance } from '../instance';
 
-function IdeaLink() {
+function IdeaLink({ item, setLiked }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [liked, setLiked] = useState(false);
+  // const [liked, setLiked] = useState(false);
   const [hover, setHover] = useState(false);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, [item.liked]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    getEnterPost();
+  }
+
+  const getEnterPost = async () => {
+    try {
+      const response = await instance.get(`/post/enter/${item.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      })
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const upLike = async () => {
+    try {
+      const response = await instance.post(`/like/${item.id}`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      console.log(response);
+      setLiked(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const downLike = async () => {
+    try {
+      const response = await instance.delete(`/like/${item.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      console.log(response);
+      setLiked(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <div css={css`
@@ -29,11 +89,11 @@ function IdeaLink() {
         text-align: center;
         background-color: white;
       `}>
-          <img src='./images/Logo.svg' alt='아이디어의 로고 사진' css={css`
-          width: 240px;
-          height: 240px;
-          border-radius: 30px;
-        `} onClick={() => setIsModalOpen(true)} />
+          <img src={item.imageUrl} alt='아이디어의 로고 사진' css={css`
+          width: 260px;
+          height: 260px;
+          border-radius: 30px 30px 0 0;
+        `} onClick={() => openModal()} />
         </div>
         <div css={css`
         font-size: 18px;
@@ -41,13 +101,13 @@ function IdeaLink() {
         padding-top: 10px;
         padding-bottom: 10px;
       `}>
-          <div onClick={() => setIsModalOpen(true)}>
+          <div onClick={() => openModal()}>
             <h4 css={css`
             margin: 0;
-          `}>그로젝트</h4>
+          `}>{item.projectName}</h4>
             <span css={css`
             font-size: 0.6em;
-          `}>소개소개소개소개</span>
+          `}>{item.intro}</span>
           </div>
         </div>
         <div css={css`
@@ -60,21 +120,21 @@ function IdeaLink() {
             <span css={css`
             font-size: 0.6em;
             display: block;
-          `}>서비스서비스서비스</span>
-            <span css={css`
+          `}>{item.skill}</span>
+            {/* <span css={css`
             font-size: 0.6em;
             display: block;
-          `}>1일 전</span>
+          `}>1일 전</span> */}
           </div>
           <div css={css`
             display: flex;
             flex-direction: column;
             align-items: center;
-          `} onClick={() => setLiked(prev => !prev)}>
-            <img src={hover ? './images/hoverPlant.svg' : (!liked ? './images/defaultPlant.svg' : './images/clickPlant.svg')} alt='좋아요 개수' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} />
+          `} onClick={() => !item.liked ? upLike() : downLike()}>
+            <img src={hover ? './images/hoverPlant.svg' : (!item.liked ? './images/defaultPlant.svg' : './images/clickPlant.svg')} alt='좋아요 개수' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} />
             <span css={css`
               font-size: 12px;
-            `}>80</span>
+            `}>{item.like}</span>
           </div>
         </div>
       </div>
@@ -111,14 +171,14 @@ function IdeaLink() {
               height: 250px;
               background-color: #F6F6F6;
               border-radius: 20px;
-              padding: 10px;
               border: 1px solid black;
               text-align: center;
               margin-left: 50px;
             `}>
-              <img src={`./images/${false ? 'Logo' : 'clickPlant'}.svg`} alt='프로젝트 로고' css={css`
+              <img src={`${item.imageUrl ? item.imageUrl : './images/clickPlant.svg'}`} alt='프로젝트 로고' css={css`
                 width: 250px;
                 height: 250px;
+                border-radius: 20px;
               `} />
             </div>
             <div css={css`
@@ -131,14 +191,16 @@ function IdeaLink() {
                 <h4 css={css`
                 font-size: 32px;
                 margin: 0;
-              `}>그로젝트 <span css={css`
+              `}>{item.projectName}
+                  {/* <span css={css`
                 font-size: 24px;
                 font-weight: normal;
                 color: #727272;
-              `}>2022.10.05</span></h4>
+              `}>2022.10.05</span> */}
+                </h4>
                 <span css={css`
                 font-size: 20px;
-              `}>스마트 스쿨 플랫폼!</span>
+              `}>{item.intro}</span>
               </div>
               <div css={css`
                 display: flex;
@@ -147,13 +209,13 @@ function IdeaLink() {
               `}>
                 <span css={css`
                 font-size: 20px;
-              `}>서비스 종류: 웹 서비스, 앱 서비스</span>
+              `}>서비스 종류: {item.category}</span>
                 <span css={css`
                 font-size: 20px;
-              `}>사용 언어/툴: React.js, typeScript, .......</span>
+              `}>사용 언어/툴: {item.skill}</span>
                 <span css={css`
                 font-size: 20px;
-              `}>연락처: 010-1111-2222</span>
+              `}>연락처: {`${item.phoneNumber.substr(0, 3)}-${item.phoneNumber.substr(3, 4)}-${item.phoneNumber.substr(7, 4)}`}</span>
               </div>
             </div>
           </div>
@@ -164,7 +226,7 @@ function IdeaLink() {
             margin-left: 50px;
             word-break: break-all;
           `}>
-            화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!화이팅 하세 요 !!
+            {item.content}
           </p>
         </div>
         <div css={css`
@@ -175,11 +237,11 @@ function IdeaLink() {
           right: 50px;
           cursor: pointer;
           bottom: 50px;
-        `} onClick={() => setLiked(prev => !prev)}>
-          <img src={hover ? './images/hoverPlant.svg' : (!liked ? './images/defaultPlant.svg' : './images/clickPlant.svg')} alt='좋아요 개수' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} />
+        `} onClick={() => !item.liked ? upLike() : downLike()}>
+          <img src={hover ? './images/hoverPlant.svg' : (!item.liked ? './images/defaultPlant.svg' : './images/clickPlant.svg')} alt='좋아요 개수' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} />
           <span css={css`
           font-size: 12px;
-        `}>80</span>
+        `}>{item.like}</span>
         </div>
       </Modal>
     </>
@@ -187,6 +249,7 @@ function IdeaLink() {
 }
 
 function Button({ children, disabled, clickButton }) {
+  const [category, setCategory] = useRecoilState(categoryState);
   return (
     <button css={css`
       border: ${!disabled ? '2px solid black' : 'none'};
@@ -197,13 +260,16 @@ function Button({ children, disabled, clickButton }) {
       width: 100px;
       background-color: ${!disabled ? '#F3F3F3' : '#258FE5'};
       color: ${!disabled ? 'black' : 'white'};
-    `} disabled={disabled} onClick={() => clickButton()}>
+    `} disabled={disabled} onClick={() => {
+        clickButton();
+        setCategory(children.toLowerCase());
+      }}>
       {children}
     </button>
   )
 }
 
-function JoinButton({ children, color }) {
+function JoinButton({ children, color, onClick }) {
   return (
     <button css={css`
       background-color: ${color};
@@ -215,13 +281,23 @@ function JoinButton({ children, color }) {
       margin: 5px;
       margin-bottom: 0;
       color: white;
-    `}>
+    `} onClick={onClick}>
       {children}
     </button>
   )
 }
 
-function InputInfo({ children }) {
+function InputInfo({ children, name }) {
+  const [newPost, setNewPost] = useRecoilState(newPostState);
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    const nextInputs = {
+      ...newPost,
+      [name]: value,
+    }
+    setNewPost(nextInputs);
+  }
+
   return (
     <div css={css`
       display: flex;
@@ -250,7 +326,7 @@ function InputInfo({ children }) {
         &:focus{
           border: 2px solid #3FB05E;
         }
-      `} />
+      `} name={name} onChange={onChange} />
     </div>
   )
 }
@@ -259,13 +335,135 @@ function Worker() {
   const [disabled, setDisabled] = useState([false, false, false]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const [sort, setSort] = useState('정렬');
+  const [sort, setSort] = useRecoilState(sortState);
+  const selectFile = useRef(null);
   const [selected, setSelected] = useState(-1);
+  const [newPost, setNewPost] = useRecoilState(newPostState);
+  const [postList, setPostList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [liked, setLiked] = useState(false);
+
+
+  const [category, setCategory] = useRecoilState(categoryState);
+
   const clickButton = (index) => {
     let newDisabledArray = [false, false, false];
     newDisabledArray[index] = true;
     setDisabled(newDisabledArray);
   }
+
+  const getTimeList = async () => {
+    try {
+      setLoading(true);
+      const response = await instance.get('/post/time', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      setPostList(response.data.postDtos);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
+  const getLikeList = async () => {
+    try {
+      setLoading(true);
+      const response = await instance.get('/post/like', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      setPostList(response.data.postDtos);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await instance.get('/post/time', {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+  //         },
+  //       });
+  //       setPostList(response.data.postDtos);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  //   setLoading(false);
+  // }, [isModalOpen]);
+
+  useEffect(() => {
+    console.log(category);
+    (async () => {
+      try {
+        const response = await instance.get(`/post/${sort === '인기순' ? 'like' : 'time'}${category && `/${category}`}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        });
+        console.log(response);
+        setPostList(response.data.postDtos);
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+  }, [category, sort, isModalOpen, liked]);
+
+  const profileImgFormData = new FormData();
+
+  const changeProfileImg = async (e) => {
+    try {
+      // console.log(e.target);
+      const newProfileImg = e.target.files;
+      profileImgFormData.append("file", newProfileImg[0]);
+      const response = await instance.post(
+        "image",
+        profileImgFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "Content-Type":
+              "multipart/form-data; boundary=<calculated when request is sent>",
+          },
+        }
+      );
+      setNewPost({
+        ...newPost,
+        imageUrl: response.data.imageUrl[0],
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Post = async () => {
+    try {
+      const response = await instance.post('/post', newPost, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      setIsModalOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    const nextInputs = {
+      ...newPost,
+      [name]: value,
+    }
+    setNewPost(nextInputs);
+  }
+
   return (
     <>
       <Header />
@@ -303,7 +501,7 @@ function Worker() {
           background-color: white;
           border: 1px solid black;
           cursor: pointer;
-        `} onClick={() => setIsModalOpen(true)}>글쓰기</button>
+          `} onClick={() => setIsModalOpen(true)}>글쓰기</button>
         <ul css={css`
             list-style-type: none;
             margin: 0;
@@ -340,6 +538,7 @@ function Worker() {
           `} onClick={() => {
                 setDropdown(prev => !prev);
                 setSort('최신순');
+                getTimeList();
               }}>최신순</li>
             <li value="2" css={css`
             background-color: white;
@@ -354,6 +553,7 @@ function Worker() {
           `} onClick={() => {
                 setDropdown(prev => !prev);
                 setSort('인기순');
+                getLikeList();
               }}>인기순</li>
           </>}
         </ul>
@@ -366,16 +566,11 @@ function Worker() {
         margin: 0 auto;
         gap: 50px;
       `} >
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
-        <IdeaLink />
+        {!loading ? postList.map((item) => {
+          return (
+            <IdeaLink item={item} key={item.id} setLiked={setLiked} />
+          )
+        }) : null}
       </div>
       <Modal
         isOpen={isModalOpen}
@@ -417,7 +612,7 @@ function Worker() {
             border: 1px solid black;
             text-align: center;
           `}>
-              <img src={`./images/${false ? 'Logo' : 'hoverPlant'}.svg`} alt='프로젝트 로고' css={css`
+              <img src={`${newPost.imageUrl ? newPost.imageUrl : './images/hoverPlant.svg'}`} alt='프로젝트 로고' css={css`
               width: 250px;
               height: 250px;
             `} />
@@ -430,6 +625,13 @@ function Worker() {
               display: flex;
               justify-content: space-between;
             `}>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  ref={selectFile}
+                  onChange={(e) => changeProfileImg(e)}
+                  accept="image/*"
+                />
                 <button css={css`
                 padding: 5px;
                 width: 135px;
@@ -443,7 +645,7 @@ function Worker() {
                 background-color: white;
                 border: 1px solid black;
                 cursor: pointer;
-              `}><img src='./images/camera.svg' alt='카메라 아이콘' /> 사진 등록</button>
+              `} onClick={() => selectFile.current.click()}><img src='./images/camera.svg' alt='카메라 아이콘' /> 사진 등록</button>
                 <button css={css`
                 padding: 5px;
                 width: 135px;
@@ -456,7 +658,7 @@ function Worker() {
                 background-color: white;
                 border: 1px solid black;
                 cursor: pointer;
-              `}><img src='./images/trash.svg' alt='카메라 아이콘' /> 사진 삭제</button>
+              `}><img src='./images/trash.svg' alt='쓰레기통 아이콘' /> 사진 삭제</button>
               </div>
             </div>
           </div>
@@ -467,8 +669,8 @@ function Worker() {
             flex-direction: column;
             gap: 30px;
           `}>
-            <InputInfo>프로젝트 명</InputInfo>
-            <InputInfo>한 줄 설명</InputInfo>
+            <InputInfo name='projectName'>프로젝트 명</InputInfo>
+            <InputInfo name='intro'>한 줄 설명</InputInfo>
             <div css={css`
               display: flex;
               align-items: center;
@@ -489,13 +691,31 @@ function Worker() {
                   margin: 0;
                   width: 500px;
                 `} >
-                <Select cssProp={selected === 2 && 'border: 2px solid #3FB05E'} event={() => setSelected(2)} display='none' margin='0' width='135px' height='30px' id='2' title='웹 서비스' fontSize='18px' divStyle={`margin: 0`} />
-                <Select cssProp={selected === 1 && 'border: 2px solid #3FB05E'} event={() => setSelected(1)} display='none' margin='0' width='135px' height='30px' id='1' title='앱 서비스' fontSize='18px' divStyle={`margin: 0`} />
-                <Select cssProp={selected === 3 && 'border: 2px solid #3FB05E'} event={() => setSelected(3)} display='none' margin='0' width='135px' height='30px' id='3' title='하드웨어' fontSize='18px' divStyle={`margin: 0`} />
+                <Select cssProp={selected === 2 && 'border: 2px solid #3FB05E'} event={() => {
+                  setSelected(2);
+                  setNewPost({
+                    ...newPost,
+                    category: 'WEB',
+                  });
+                }} display='none' margin='0' width='135px' height='30px' id='2' title='웹 서비스' fontSize='18px' divStyle={`margin: 0`} />
+                <Select cssProp={selected === 1 && 'border: 2px solid #3FB05E'} event={() => {
+                  setSelected(1);
+                  setNewPost({
+                    ...newPost,
+                    category: 'APP',
+                  });
+                }} display='none' margin='0' width='135px' height='30px' id='1' title='앱 서비스' fontSize='18px' divStyle={`margin: 0`} />
+                <Select cssProp={selected === 3 && 'border: 2px solid #3FB05E'} event={() => {
+                  setSelected(3);
+                  setNewPost({
+                    ...newPost,
+                    category: 'HW',
+                  });
+                }} display='none' margin='0' width='135px' height='30px' id='3' title='하드웨어' fontSize='18px' divStyle={`margin: 0`} />
               </div>
             </div>
-            <InputInfo>사용 언어/툴</InputInfo>
-            <InputInfo>연락처</InputInfo>
+            <InputInfo name='skill'>사용 언어/툴</InputInfo>
+            <InputInfo name='phoneNumber'>연락처</InputInfo>
           </div>
         </div>
         <textarea placeholder='프로젝트 및 아이디어에 대한 설명을 작성해주세요.' css={css`
@@ -514,12 +734,12 @@ function Worker() {
             border: 2px solid #3FB05E;
             box-shadow: inset 0px 0px 4px 3px rgba(63, 176, 94, 0.25)
           }
-        `} />
+        `} name='content' onChange={(e) => onChange(e)} />
         <div css={css`
           text-align: center;
         `}>
-          <JoinButton color='#EC4B4B'>취소</JoinButton>
-          <JoinButton color='#3FB05E'>등록</JoinButton>
+          <JoinButton color='#EC4B4B' onClick={() => setIsModalOpen(false)}>취소</JoinButton>
+          <JoinButton color='#3FB05E' onClick={() => Post()}>등록</JoinButton>
         </div>
       </Modal>
     </>

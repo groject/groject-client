@@ -1,9 +1,10 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import * as C from './components';
+import { RecoilRoot } from 'recoil';
 function App() {
   return (
-    <>
+    <RecoilRoot>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<C.Main />} />
@@ -14,7 +15,7 @@ function App() {
           <Route path='/my' element={<C.MyPage />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </RecoilRoot>
   );
 }
 
