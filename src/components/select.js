@@ -18,7 +18,7 @@ function Select({ display, label, width, height, id, title, margin, cssProp, eve
       <span css={
         css`
             display: ${display};
-            width: 150px;
+            width: 155px;
             margin-right: 44px;
             text-align: right;
           `

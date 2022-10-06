@@ -11,7 +11,7 @@ function InputBox({ label, placeholder, type }) {
         <span css={
           css`
             display: inline-block;
-            width: 150px;
+            width: 155px;
             margin-right: 44px;
             text-align: right;
           `

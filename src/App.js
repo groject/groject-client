@@ -11,6 +11,7 @@ function App() {
           <Route path='/login' element={<C.Login />} />
           <Route path='/worker' element={<C.Worker />} />
           <Route path='/capsule' element={<C.Capsule />} />
+          <Route path='/my' element={<C.MyPage />} />
         </Routes>
       </BrowserRouter>
     </>
