@@ -290,7 +290,7 @@ function Main() {
           border-radius: 10px;
           height: 40px;
           position: absolute;
-          right: 285px;
+          right: calc(10% + 140px);
           width: 80px;
           font-size: 16px;
           background-color: white;
@@ -303,13 +303,14 @@ function Main() {
             padding: 0;
             position: absolute;
             text-align: left;
-            right: 140px;
+            right: 10%;
           `}>
           <li value="0" css={css`
             background-color: white;
             border-radius: ${dropdown ? '10px 10px 0 0' : '10px'};
             border: 1px solid black;
             height: 38px;
+            cursor: pointer;
             width: 120px;
             line-height: 40px;
             padding-left: 10px;
@@ -347,7 +348,8 @@ function Main() {
       <div css={css`
         display: grid;
         width: 80%;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         margin: 0 auto;
         gap: 30px;
       `} >
