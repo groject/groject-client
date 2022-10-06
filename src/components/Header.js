@@ -36,10 +36,10 @@ function Header() {
         </Link>
       </div>
       <div css={css([headerLink, { marginRight: '64px' }])}>
-        <Link to='/signup' css={css(linkStyle)}>
+        <Link to='/signup' css={[(linkStyle), { color: 'black' }]}>
           SIGNUP
         </Link>
-        <Link to='/login' css={css(linkStyle)}>
+        <Link to='/login' css={[(linkStyle), { color: 'black' }]}>
           LOGIN
         </Link>
       </div>
